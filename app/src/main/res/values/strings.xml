@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">OnFlow</string>
+    <string name="hier_w_hlst_du_aus_welche_apps_von_der_sperre_betroffen_sein_sollen">Hier wählst du aus, welche Apps von der Sperre betroffen sein sollen.</string>
+    <string name="apps_gefunden">Apps gefunden:</string>
+    <string name="profil_name">Profil-Name</string>
+    <string name="maximale_geschwindigkeit">Maximale Geschwindigkeit</string>
+    <string name="apps_ausw_hlen">Apps auswählen</string>
+</resources>
