@@ -5,28 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    
+
     <Switch
-        android:background="@color/gray"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="Switch"
         android:id="@+id/sw"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:background="@color/gray"
+        android:text="Switch"
+        android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="439dp"
-        tools:ignore="MissingConstraints,UseSwitchCompatOrMaterialXml" />
+        tools:ignore="MissingConstraints,UseSwitchCompatOrMaterialXml"
+        tools:layout_editor_absoluteY="439dp" />
 
-    <ImageView
-        android:id="@+id/image_icon"
-        android:layout_width="51dp"
-        android:layout_height="55dp"
+        <ImageView
+            android:id="@+id/image_icon"
+            android:layout_width="51dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_vertical"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="451dp" />
 
-        app:layout_constraintHorizontal_bias="0.041"
-        app:layout_constraintVertical_bias="0.48"
-        tools:ignore="MissingConstraints" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,13 @@ package com.antozstudios.myapplication.util;
 
 import static android.content.Context.ACTIVITY_SERVICE;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AppOpsManager;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +20,7 @@ import com.antozstudios.myapplication.activities.AppManagerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GetApps {
 
@@ -22,6 +29,7 @@ public class GetApps {
     List<String> appPackageNames = new ArrayList<>();
 
     List<Drawable> appIcon = new ArrayList<>();
+
     public GetApps(Context context) {
         mContext = context;
 
@@ -35,7 +43,11 @@ public class GetApps {
                 String appName = packageManager.getApplicationLabel(packageInfo).toString();
                 appNames.add(appName);
                 appPackageNames.add(packageInfo.packageName);
-                appIcon.add(packageManager.getDefaultActivityIcon());
+                try {
+                    appIcon.add(packageManager.getApplicationIcon(packageInfo.packageName));
+                } catch (PackageManager.NameNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
@@ -53,17 +65,21 @@ public class GetApps {
         return appIcon;
     }
 
-    void aa(Context context){
-        ActivityManager am =(ActivityManager)context.getSystemService(ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-        ActivityManager.RunningTaskInfo task = tasks.get(0); // current task
-        ComponentName rootActivity = task.baseActivity;
 
+    public static boolean isAppRunning(Context context, String packageName) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (activityManager != null) {
 
-        String currentPackageName = rootActivity.getPackageName();
-        if(currentPackageName.equals("com.sec.android.gallery3d")) {
-            //Do whatever here
+            for(int i = 0;i<activityManager.getRunningAppProcesses().size();i++){
+                if(packageName.contains(activityManager.getRunningAppProcesses().get(i).processName)){
+                    return true;
+                }
+
+            }
         }
+
+
+        return false;
     }
 
 }

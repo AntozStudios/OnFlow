@@ -1,6 +1,7 @@
 package com.antozstudios.myapplication.util;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.io.File;
@@ -11,21 +12,30 @@ import java.io.OutputStreamWriter;
 public class CreateTextFile {
 
 
+public File directory;
 
-    public CreateTextFile(Context context,String data,String dir,String fileName) {
-        File directory = new File(context.getExternalFilesDir(null), dir);
-        if (!directory.exists()) {
-            if (!directory.mkdirs()) {
-                return;
+Context context;
+
+    public CreateTextFile(Context context) {
+    this.context = context;
+
+    }
+
+    public void writeData(String dir,String fileName,String data){
+        directory = new File(context.getExternalFilesDir(null), dir);
+        if(!dirExist(directory)){
+            File file = new File(directory, fileName+".txt");
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+                outputStreamWriter.write(data);
+                outputStreamWriter.close();
+            } catch (IOException ignored) {
             }
         }
-        File file = new File(directory, fileName+".txt");
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
-        } catch (IOException ignored) {
-        }
+    }
+
+    public static boolean dirExist(File directory){
+      return  directory.exists();
     }
 }

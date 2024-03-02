@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.antozstudios.myapplication.R;
-import com.facebook.shimmer.ShimmerFrameLayout;
 
 public class PermissionActivity extends AppCompatActivity {
 

@@ -3,29 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/black">
 
 
     <org.osmdroid.views.MapView
         android:id="@+id/mapview"
         tilesource="Mapnik"
-        android:layout_width="411dp"
-        android:layout_height="370dp"
-        android:layout_marginTop="148dp"
-        app:layout_constraintBottom_toTopOf="@+id/drag"
+        android:layout_width="409dp"
+        android:layout_height="523dp"
+        android:layout_marginTop="155dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="1.0"/>
+        app:layout_constraintTop_toTopOf="@+id/linearLayout2">
+
+    </org.osmdroid.views.MapView>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="411dp"
-        android:layout_height="126dp"
+        android:layout_width="409dp"
+        android:layout_height="154dp"
+
+        android:layout_marginTop="4dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,8 +38,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:gravity="center"
-            android:text="TextView"
-            android:textSize="40sp" />
+            android:text="0"
+            android:textSize="40sp"
+            app:autoSizeTextType="uniform" />
 
         <TextView
             android:id="@+id/setupSpeed"
@@ -45,7 +48,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:gravity="center"
-            android:text="TextView"
+            android:text="0"
             android:textSize="25sp" />
 
 
@@ -57,7 +60,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapview"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
 
 
