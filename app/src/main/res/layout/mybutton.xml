@@ -11,7 +11,7 @@
         android:id="@+id/sw"
         android:layout_width="match_parent"
         android:layout_height="81dp"
-        android:background="@color/gray"
+        android:background="@color/black"
         android:text="Switch"
         android:textAlignment="center"
         android:textAllCaps="true"

@@ -9,8 +9,9 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="409dp"
-        android:layout_height="350dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -20,12 +21,30 @@
         tools:ignore="MissingConstraints">
 
 
+
+        <Spinner
+            android:id="@+id/selectProfileSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            tools:ignore="DuplicateIds" />
+
+
         <Button
             android:id="@+id/addProfil"
-            android:layout_width="311dp"
-            android:text="App-Profil erstellen"
+            android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="@string/app_profil_erstellen" />
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+
+            android:text="@string/einstellungen" />
+
 
 
     </LinearLayout>

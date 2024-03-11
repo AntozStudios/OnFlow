@@ -6,53 +6,81 @@
     android:layout_height="match_parent"
     android:backgroundTint="@color/black">
 
-
-    <org.osmdroid.views.MapView
-        android:id="@+id/mapview"
-        tilesource="Mapnik"
-        android:layout_width="409dp"
-        android:layout_height="523dp"
-        android:layout_marginTop="155dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout2">
-
-    </org.osmdroid.views.MapView>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="409dp"
-        android:layout_height="154dp"
-
-        android:layout_marginTop="4dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/drag"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="1dp">
 
 
-        <TextView
-            android:id="@+id/currentSpeed"
+        <org.osmdroid.views.MapView
+            android:id="@+id/mapview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toTopOf="@+id/drag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center"
-            android:text="0"
-            android:textSize="40sp"
-            app:autoSizeTextType="uniform" />
-
-        <TextView
-            android:id="@+id/setupSpeed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center"
-            android:text="0"
-            android:textSize="25sp" />
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
 
 
-    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/currentProfile"
+        android:layout_width="201dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+
+    <TextView
+        android:id="@+id/setupSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+</LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/currentSpeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="none"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
         android:id="@+id/drag"
@@ -62,8 +90,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapview"
-        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
 
 

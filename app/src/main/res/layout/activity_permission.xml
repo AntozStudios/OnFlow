@@ -39,19 +39,25 @@
                 android:id="@+id/gpsButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Standort ermitteln" />
+                android:text="@string/standort_ermitteln" />
 
             <Button
                 android:id="@+id/overlayButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Über anderen Apps setzen" />
+                android:text="@string/ber_anderen_apps_setzen" />
 
             <Button
                 android:id="@+id/storageButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Speicher lesen" />
+                android:text="@string/speicher_lesen" />
+
+            <Button
+                android:id="@+id/usageButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/ger_tenutzungsverlauf_und_statistiken" />
 
 
         </LinearLayout>
