@@ -5,14 +5,20 @@ package com.antozstudios.myapplication.activities;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -58,6 +64,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
 
+    CheckAppService mService;
+    boolean mBound = false;
 
     SpeedCalculator speedCalculator;
     Spinner spinner;
@@ -68,28 +76,19 @@ public class MainActivity extends AppCompatActivity {
     BottomSheetDragHandleView bottomSheetDragHandleView;
 
 
-
-
-
-
-
     double oldLat;
     double oldLon;
 
     TextView setupSpeed;
-    private final double maxZoom = 22.0;
-    private final double minZoom = 20.0;
 
     TextView currentProfile;
-    private Intent checkService;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startService(new Intent(this,CheckAppService.class));
 
-
-         checkService = new Intent(MainActivity.this,CheckAppService.class);
 
         speedCalculator = new SpeedCalculator();
         setContentView(R.layout.activity_main);
@@ -106,10 +105,6 @@ public class MainActivity extends AppCompatActivity {
         setupSpinner();
         createThread();
 
-
-
-
-
         currentProfile = findViewById(R.id.currentProfile);
 
         if(!arrayAdapter.isEmpty()){
@@ -119,16 +114,59 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        startService(checkService);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mService.profileName = spinner.getSelectedItem().toString();
+                setupSpeed.setText(FileHelper.getSpeedFromProfile(getApplicationContext(),spinner.getSelectedItem().toString()));
+                currentProfile.setText(FileHelper.getProfileFromProfile(getApplicationContext(),spinner.getSelectedItem().toString()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
 
 
 
-
-}
-
+    }
 
 
+    /** Defines callbacks for service binding, passed to bindService(). */
+    private ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance.
+            CheckAppService.LocalBinder binder = (CheckAppService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Intent intent = new Intent(this, CheckAppService.class);
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(connection);
+        mBound = false;
+    }
 
     void setupOSM() {
         MapView mMap = findViewById(R.id.mapview);
@@ -139,7 +177,9 @@ public class MainActivity extends AppCompatActivity {
 
         mMap.setTileSource(CustomTileFactory.Dark);
         mMap.setMultiTouchControls(true);
+        double maxZoom = 22.0;
         mMap.setMaxZoomLevel(maxZoom);
+        double minZoom = 20.0;
         mMap.setMinZoomLevel(minZoom);
         mMap.getLocalVisibleRect(new Rect());
         mMyLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), mMap);
@@ -188,27 +228,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-
-        if(!arrayAdapter.isEmpty()){
-
-            currentProfile.setText(FileHelper.getProfileFromProfile(getApplicationContext(),spinner.getSelectedItem().toString()));
-            setupSpeed.setText(FileHelper.getSpeedFromProfile(getApplicationContext(),spinner.getSelectedItem().toString()));
-
-            if(checkService!=null){
-                checkService.putExtra("profileName",spinner.getSelectedItem().toString());
-
-            }
-
-
-        }
-
-    }
-
-
 
 
     void createThread() {
@@ -244,6 +263,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+
+
         };
         runnable.run();
 
@@ -274,7 +295,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+
     }
+
+
+
 
 
 
